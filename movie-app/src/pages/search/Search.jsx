@@ -1,13 +1,13 @@
 import { Container, Heading } from "@chakra-ui/react";
 
-const Home = () => {
+const Search = () => {
   return (
     <Container maxW={"container.xl"}>
       <Heading as="h2" fontSize={"md"} textTransform={"uppercase"}>
-        Trending
+        Search
       </Heading>
     </Container>
   );
 };
 
-export default Home;
+export default Search;

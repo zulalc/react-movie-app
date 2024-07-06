@@ -10,16 +10,16 @@ const Navbar = () => {
             <Box
               fontSize={"2xl"}
               fontWeight={"bold"}
-              color={"red"}
-              letterSpacing={"widest"}
+              color="#B9A2FF"
+              letterSpacing={"wide"}
               fontFamily={"mono"}
             >
-              NETFLEX
+              Watchbird
             </Box>
           </Link>
 
           {/*DESKTOP VERSION ONLY*/}
-          <Flex>
+          <Flex gap="4" alignItems={"center"}>
             <Link to="/">Home</Link>
             <Link to="/movies">Movies</Link>
             <Link to="/shows">TV Shows</Link>
