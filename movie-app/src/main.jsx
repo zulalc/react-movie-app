@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import App from "./App.jsx";
 import "./index.css";
-import theme from "../../theme.js";
+import theme from "../theme.js";
 import Home from "./pages/Home.jsx";
 import Movies from "./pages/movies/Movies.jsx";
 import Shows from "./pages/shows/Shows.jsx";
