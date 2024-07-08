@@ -10,11 +10,11 @@ const Navbar = () => {
             <Box
               fontSize={"2xl"}
               fontWeight={"bold"}
-              color="#B9A2FF"
+              color="red"
               letterSpacing={"wide"}
               fontFamily={"mono"}
             >
-              Watchbird
+              NETFLICKS
             </Box>
           </Link>
 
