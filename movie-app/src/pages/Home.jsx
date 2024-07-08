@@ -1,4 +1,11 @@
-import { Box, Container, Flex, Grid, Heading } from "@chakra-ui/react";
+import {
+  Box,
+  Container,
+  Flex,
+  Grid,
+  Heading,
+  Skeleton,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { fetchTrending } from "../services/api";
 import CardComponent from "../components/CardComponent";
@@ -70,7 +77,13 @@ const Home = () => {
         gap="4"
       >
         {data &&
-          data?.map((item) => <CardComponent key={item?.id} item={item} />)}
+          data?.map((item, i) =>
+            loading ? ( //when loading there is a possibility we don't have data so we dont use data key here
+              <Skeleton height={300} key={i} />
+            ) : (
+              <CardComponent key={item?.id} item={item} />
+            )
+          )}
       </Grid>
     </Container>
   );
