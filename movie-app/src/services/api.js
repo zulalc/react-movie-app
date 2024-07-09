@@ -14,3 +14,11 @@ export const fetchTrending = async (timeWindow = "day") => {
 
   return data?.results;
 };
+
+// Details - Movies and Tv Shows
+//movie/movie_id --- series/series_id
+
+export const fetchDetails = async (type, id) => {
+  const res = await axios.get(`${baseUrl}/${type}/${id}?api_key=${apiKey}`);
+  return res?.data;
+};

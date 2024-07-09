@@ -81,7 +81,11 @@ const Home = () => {
             loading ? ( //when loading there is a possibility we don't have data so we dont use data key here
               <Skeleton height={300} key={i} />
             ) : (
-              <CardComponent key={item?.id} item={item} />
+              <CardComponent
+                key={item?.id}
+                item={item}
+                type={item?.media_type}
+              />
             )
           )}
       </Grid>
