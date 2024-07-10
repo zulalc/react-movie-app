@@ -1,4 +1,5 @@
 import {
+  Badge,
   Box,
   Button,
   CircularProgress,
@@ -12,7 +13,12 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchDetails, imagePath, imagePathOriginal } from "../services/api";
+import {
+  fetchCredits,
+  fetchDetails,
+  imagePath,
+  imagePathOriginal,
+} from "../services/api";
 import { CalendarIcon, CheckCircleIcon, SmallAddIcon } from "@chakra-ui/icons";
 import { ratingToPercentage, resolveRatingColor } from "../utils/helpers";
 
@@ -21,9 +27,10 @@ const DetailsPage = () => {
   const { type, id } = router;
 
   const [details, setDetails] = useState({});
+  const [cast, setCast] = useState({});
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  /*useEffect(() => {
     fetchDetails(type, id)
       .then((res) => {
         console.log(res, "res");
@@ -35,6 +42,29 @@ const DetailsPage = () => {
       .finally(() => {
         setLoading(false);
       });
+  }, [type, id]);*/
+
+  //Dealing with multiple API requests/promises
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [detailsData, creditsData] = await Promise.all([
+          fetchDetails(type, id),
+          fetchCredits(type, id),
+        ]); //array of promises
+
+        setDetails(detailsData);
+        setCast(creditsData?.cast?.slice(0, 10));
+        console.log(detailsData, "details");
+        console.log(creditsData, "credit");
+      } catch (error) {
+        console.log(error, "error");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, [type, id]);
 
   if (loading) {
@@ -62,7 +92,7 @@ const DetailsPage = () => {
         display={"flex"}
         alignItems={"center"}
       >
-        <Container maxW={"container.xl"}>
+        <Container h={{ base: "auto", md: "500px" }} maxW={"container.xl"}>
           <Flex
             alignItems={"center"}
             gap={"10"}
@@ -129,10 +159,54 @@ const DetailsPage = () => {
                   Add to watchlist
                 </Button>
               </Flex>
+              <Text
+                color={"gray.400"}
+                fontSize={"sm"}
+                fontStyle={"italic"}
+                my={"5"}
+              >
+                {details?.tagline}
+              </Text>
+              <Heading fontSize={"xl"} mb={"3"}>
+                Overview
+              </Heading>
+              <Text fontSize={"md"} mb={"3"}>
+                {details?.overview}
+              </Text>
+              <Flex mt="6" gap="2">
+                {details?.genres?.map((genre) => (
+                  <Badge key={genre?.id} p="1" borderRadius={"4"}>
+                    {genre?.name}
+                  </Badge>
+                ))}
+              </Flex>
             </Box>
           </Flex>
         </Container>
       </Box>
+      <Container maxW={"container.xl"} pb={"10"}>
+        <Heading as={"h2"} fontSize={"m"} textTransform={"uppercase"} mt={"10"}>
+          Cast
+        </Heading>
+        <Flex mt={"5"} mb={"10"} overflow={"scroll"} gap={"5"}>
+          {cast?.length === 0 && <Text> No cast found</Text>}
+          {cast &&
+            cast?.map((item) => (
+              <Box key={item?.id} minW={"150px"}>
+                {console.log(cast?.profile_path === null) && (
+                  <Image src={"./assets/person.jpeg"} />
+                )}
+                {!cast?.profile_path && (
+                  <Image src={`${imagePath}/${item?.profile_path}`} />
+                )}
+                <Text>{item?.name}</Text>
+                <Text fontSize={"smaller"} color={"gray.400"}>
+                  {item?.character}
+                </Text>
+              </Box>
+            ))}
+        </Flex>
+      </Container>
     </Box>
   );
 };

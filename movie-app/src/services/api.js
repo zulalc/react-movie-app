@@ -22,3 +22,11 @@ export const fetchDetails = async (type, id) => {
   const res = await axios.get(`${baseUrl}/${type}/${id}?api_key=${apiKey}`);
   return res?.data;
 };
+
+//Credits - Movies and Tv Shows
+export const fetchCredits = async (type, id) => {
+  const res = await axios.get(
+    `${baseUrl}/${type}/${id}/credits?api_key=${apiKey}`
+  );
+  return res?.data;
+};

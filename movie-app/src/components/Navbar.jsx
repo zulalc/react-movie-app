@@ -14,7 +14,7 @@ const Navbar = () => {
               letterSpacing={"wide"}
               fontFamily={"mono"}
             >
-              NETFLICKS
+              NETFLIX
             </Box>
           </Link>
 
