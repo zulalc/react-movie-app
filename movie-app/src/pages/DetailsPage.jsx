@@ -21,6 +21,7 @@ import {
 } from "../services/api";
 import { CalendarIcon, CheckCircleIcon, SmallAddIcon } from "@chakra-ui/icons";
 import { ratingToPercentage, resolveRatingColor } from "../utils/helpers";
+import imageSrc from "../assets/person.jpg";
 
 const DetailsPage = () => {
   const router = useParams();
@@ -28,6 +29,7 @@ const DetailsPage = () => {
 
   const [details, setDetails] = useState({});
   const [cast, setCast] = useState({});
+  const [crew, setCrew] = useState({});
   const [loading, setLoading] = useState(true);
 
   /*useEffect(() => {
@@ -55,6 +57,7 @@ const DetailsPage = () => {
 
         setDetails(detailsData);
         setCast(creditsData?.cast?.slice(0, 10));
+        setCrew(creditsData?.crew?.slice(0, 3));
         console.log(detailsData, "details");
         console.log(creditsData, "credit");
       } catch (error) {
@@ -104,7 +107,7 @@ const DetailsPage = () => {
               src={`${imagePath}/${details?.poster_path}`}
             />
             <Box>
-              <Heading fontSize={"3xl"}>
+              <Heading mt={"4"} fontSize={"3xl"}>
                 {title}{" "}
                 <Text as={"span"} fontWeight={"normal"} color={"gray.400"}>
                   {new Date(releaseDate).getFullYear()}
@@ -180,6 +183,20 @@ const DetailsPage = () => {
                   </Badge>
                 ))}
               </Flex>
+
+              <Flex mt={"5"} mb={"10"} gap={"5"}>
+                {crew?.length === 0 && <Text> No crew found</Text>}
+
+                {crew &&
+                  crew?.map((item) => (
+                    <Box key={item?.credit_id} minW={"100px"}>
+                      <Text>{item?.name}</Text>
+                      <Text fontSize={"smaller"} color={"gray.400"}>
+                        {item?.job}
+                      </Text>
+                    </Box>
+                  ))}
+              </Flex>
             </Box>
           </Flex>
         </Container>
@@ -190,15 +207,18 @@ const DetailsPage = () => {
         </Heading>
         <Flex mt={"5"} mb={"10"} overflow={"scroll"} gap={"5"}>
           {cast?.length === 0 && <Text> No cast found</Text>}
+
           {cast &&
             cast?.map((item) => (
               <Box key={item?.id} minW={"150px"}>
-                {console.log(cast?.profile_path === null) && (
-                  <Image src={"./assets/person.jpeg"} />
-                )}
-                {!cast?.profile_path && (
-                  <Image src={`${imagePath}/${item?.profile_path}`} />
-                )}
+                <Image
+                  src={
+                    item?.profile_path
+                      ? `${imagePath}/${item?.profile_path}`
+                      : imageSrc
+                  }
+                  alt={item?.name || "No profile"}
+                />
                 <Text>{item?.name}</Text>
                 <Text fontSize={"smaller"} color={"gray.400"}>
                   {item?.character}
