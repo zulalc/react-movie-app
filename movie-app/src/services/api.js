@@ -30,3 +30,11 @@ export const fetchCredits = async (type, id) => {
   );
   return res?.data;
 };
+
+// Trailer - Movies & TV shows
+export const fetchVideos = async (type, id) => {
+  const res = await axios.get(
+    `${baseUrl}/${type}/${id}/videos?api_key=${apiKey}`
+  );
+  return res?.data;
+};

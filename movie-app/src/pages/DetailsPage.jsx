@@ -16,12 +16,19 @@ import { useParams } from "react-router-dom";
 import {
   fetchCredits,
   fetchDetails,
+  fetchVideos,
   imagePath,
   imagePathOriginal,
 } from "../services/api";
-import { CalendarIcon, CheckCircleIcon, SmallAddIcon } from "@chakra-ui/icons";
+import {
+  CalendarIcon,
+  CheckCircleIcon,
+  SmallAddIcon,
+  TimeIcon,
+} from "@chakra-ui/icons";
 import { ratingToPercentage, resolveRatingColor } from "../utils/helpers";
 import imageSrc from "../assets/person.jpg";
+import VideoComponent from "../components/VideoComponent";
 
 const DetailsPage = () => {
   const router = useParams();
@@ -30,36 +37,35 @@ const DetailsPage = () => {
   const [details, setDetails] = useState({});
   const [cast, setCast] = useState({});
   const [crew, setCrew] = useState({});
+  const [video, setVideo] = useState(null);
+  const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  /*useEffect(() => {
-    fetchDetails(type, id)
-      .then((res) => {
-        console.log(res, "res");
-        setDetails(res);
-      })
-      .catch((err) => {
-        console.log(err, "err");
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, [type, id]);*/
 
   //Dealing with multiple API requests/promises
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [detailsData, creditsData] = await Promise.all([
+        const [detailsData, creditsData, videosData] = await Promise.all([
           fetchDetails(type, id),
           fetchCredits(type, id),
+          fetchVideos(type, id),
         ]); //array of promises
 
+        //set details
         setDetails(detailsData);
+        //set cast
         setCast(creditsData?.cast?.slice(0, 10));
+        //set crew
         setCrew(creditsData?.crew?.slice(0, 3));
-        console.log(detailsData, "details");
-        console.log(creditsData, "credit");
+        //set video and videos
+        const video = videosData?.results?.find(
+          (video) => video?.type === "Trailer"
+        );
+        setVideo(video);
+        const videos = videosData?.results
+          ?.filter((video) => video?.type !== "Trailer")
+          ?.slice(0, 5);
+        setVideos(videos);
       } catch (error) {
         console.log(error, "error");
       } finally {
@@ -69,7 +75,8 @@ const DetailsPage = () => {
 
     fetchData();
   }, [type, id]);
-
+  console.log(details, "details");
+  console.log(video, videos, "videos");
   if (loading) {
     return (
       <Flex justify={"center"}>
@@ -90,7 +97,7 @@ const DetailsPage = () => {
         backgroundSize={"cover"}
         backgroundPosition={"center"}
         w={"100%"}
-        h={{ base: "auto", md: "500px" }}
+        h={{ base: "auto", md: "600px" }}
         py={"2"}
         display={"flex"}
         alignItems={"center"}
@@ -107,7 +114,7 @@ const DetailsPage = () => {
               src={`${imagePath}/${details?.poster_path}`}
             />
             <Box>
-              <Heading mt={"4"} fontSize={"3xl"}>
+              <Heading fontSize={"3xl"}>
                 {title}{" "}
                 <Text as={"span"} fontWeight={"normal"} color={"gray.400"}>
                   {new Date(releaseDate).getFullYear()}
@@ -120,6 +127,33 @@ const DetailsPage = () => {
                   <Text fontSize={"sm"}>
                     {new Date(releaseDate).toLocaleDateString("tr-TR")} (TR)
                   </Text>
+                  {type === "movie" && (
+                    <>
+                      <Flex alignItems={"center"}>
+                        <TimeIcon mr={"2"} ml={"5"} color={"gray.400"} />
+                        <Text fontSize={"sm"}> {details?.runtime} mins</Text>
+                      </Flex>
+                    </>
+                  )}
+
+                  {type === "tv" && (
+                    <>
+                      <Flex alignItems={"center"}>
+                        <TimeIcon mr={"2"} ml={"2"} color={"gray.400"} />
+                        <Text
+                          fontSize={"sm"}
+                          /*src={
+                            details?.number_of_seasons === "1"
+                              ? `season`
+                              : `seasons`
+                          }*/
+                        >
+                          {details?.number_of_seasons} seasons •{" "}
+                          {details?.number_of_episodes} episodes
+                        </Text>
+                      </Flex>
+                    </>
+                  )}
                 </Flex>
               </Flex>
 
@@ -210,8 +244,10 @@ const DetailsPage = () => {
 
           {cast &&
             cast?.map((item) => (
-              <Box key={item?.id} minW={"150px"}>
+              <Box key={item?.id} minW={"150px"} height={"290px"}>
                 <Image
+                  width={"100%"}
+                  maxW={"150px"}
                   src={
                     item?.profile_path
                       ? `${imagePath}/${item?.profile_path}`
@@ -220,8 +256,30 @@ const DetailsPage = () => {
                   alt={item?.name || "No profile"}
                 />
                 <Text>{item?.name}</Text>
-                <Text fontSize={"smaller"} color={"gray.400"}>
+                <Text width={"150px"} fontSize={"smaller"} color={"gray.400"}>
                   {item?.character}
+                </Text>
+              </Box>
+            ))}
+        </Flex>
+
+        <Heading
+          as={"h2"}
+          fontSize={"md"}
+          textTransform={"uppercase"}
+          mt={"10"}
+          mb={"5"}
+        >
+          Videos
+        </Heading>
+        <VideoComponent id={video?.key} />
+        <Flex mt="5" mb="10" overflowX={"scroll"} gap={"5"}>
+          {videos &&
+            videos?.map((item) => (
+              <Box key={item?.id} minW={"290px"}>
+                <VideoComponent id={item?.key} small />
+                <Text fontSize={"sm"} fontWeight={"bold"} mt="2" noOfLines={2}>
+                  {item?.name}{" "}
                 </Text>
               </Box>
             ))}
