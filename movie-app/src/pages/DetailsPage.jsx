@@ -26,7 +26,11 @@ import {
   SmallAddIcon,
   TimeIcon,
 } from "@chakra-ui/icons";
-import { ratingToPercentage, resolveRatingColor } from "../utils/helpers";
+import {
+  ratingToPercentage,
+  resolveRatingColor,
+  minToHours,
+} from "../utils/helpers";
 import imageSrc from "../assets/person.jpg";
 import VideoComponent from "../components/VideoComponent";
 
@@ -77,6 +81,7 @@ const DetailsPage = () => {
   }, [type, id]);
   console.log(details, "details");
   console.log(video, videos, "videos");
+  console.log(crew, "crew");
   if (loading) {
     return (
       <Flex justify={"center"}>
@@ -131,7 +136,10 @@ const DetailsPage = () => {
                     <>
                       <Flex alignItems={"center"}>
                         <TimeIcon mr={"2"} ml={"5"} color={"gray.400"} />
-                        <Text fontSize={"sm"}> {details?.runtime} mins</Text>
+                        <Text fontSize={"sm"}>
+                          {" "}
+                          {minToHours(details?.runtime)}
+                        </Text>
                       </Flex>
                     </>
                   )}
@@ -148,8 +156,8 @@ const DetailsPage = () => {
                               : `seasons`
                           }*/
                         >
-                          {details?.number_of_seasons} seasons •{" "}
-                          {details?.number_of_episodes} episodes
+                          Season(s): {details?.number_of_seasons} • Episodes:{" "}
+                          {details?.number_of_episodes}
                         </Text>
                       </Flex>
                     </>
