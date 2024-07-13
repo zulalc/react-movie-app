@@ -5,17 +5,19 @@ import CardComponent from "../../components/CardComponent";
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
+  const [activePage, setActivePage] = useState(1);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setLoading(true);
-    fetchMovies()
+    fetchMovies(activePage)
       .then((res) => {
         console.log(res, "res");
         setMovies(res?.results);
+        setActivePage(res?.page);
       })
       .catch((error) => console.log(error, "error"))
       .finally(() => setLoading(false));
-  }, []);
+  }, [activePage]);
 
   return (
     <Container maxW={"container.xl"}>

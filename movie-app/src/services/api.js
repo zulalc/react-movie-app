@@ -40,7 +40,9 @@ export const fetchVideos = async (type, id) => {
 };
 
 // Browse Movies
-export const fetchMovies = async () => {
-  const res = await axios.get(`${baseUrl}/discover/movie?api_key=${apiKey}`);
+export const fetchMovies = async (page) => {
+  const res = await axios.get(
+    `${baseUrl}/discover/movie?api_key=${apiKey}&page=${page}`
+  );
   return res?.data;
 };
