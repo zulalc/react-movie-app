@@ -1,5 +1,12 @@
-import { Container, Grid, Heading, Skeleton } from "@chakra-ui/react";
-import { act, useEffect, useState } from "react";
+import {
+  Container,
+  Flex,
+  Grid,
+  Heading,
+  Select,
+  Skeleton,
+} from "@chakra-ui/react";
+import { useEffect, useState } from "react";
 import { fetchMovies } from "../../services/api";
 import CardComponent from "../../components/CardComponent";
 import PaginationComponent from "../../components/PaginationComponent";
@@ -8,10 +15,11 @@ const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [activePage, setActivePage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [sortBy, setSortBy] = useState("popularity.desc");
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setLoading(true);
-    fetchMovies(activePage)
+    fetchMovies(activePage, sortBy)
       .then((res) => {
         console.log(res, "res");
         setMovies(res?.results);
@@ -20,13 +28,29 @@ const Movies = () => {
       })
       .catch((error) => console.log(error, "error"))
       .finally(() => setLoading(false));
-  }, [activePage]);
-
+  }, [activePage, sortBy]);
+  //vote_average.desc&vote_count.gte=1000
+  //descending if vote given more than 1k people
   return (
     <Container maxW={"container.xl"}>
-      <Heading as="h2" fontSize={"md"} textTransform={"uppercase"} mb={"4"}>
-        Browse Movies
-      </Heading>
+      <Flex alignItems={"baseline"} gap={"4"} my={"5"}>
+        <Heading as="h2" fontSize={"md"} textTransform={"uppercase"} mb={"4"}>
+          Browse Movies
+        </Heading>
+        <Select
+          w={"130px"}
+          onChange={(e) => {
+            setActivePage(1);
+            setSortBy(e.target.value);
+          }}
+        >
+          <option value="popularity.desc">Popular</option>
+          <option value="vote_average.desc&vote_count.gte=1000">
+            Top Rated
+          </option>
+        </Select>
+      </Flex>
+
       <Grid
         templateColumns={{
           //FOR RESPONSIVENESS
