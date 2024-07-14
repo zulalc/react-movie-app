@@ -256,6 +256,7 @@ const DetailsPage = () => {
                 <Image
                   width={"100%"}
                   maxW={"150px"}
+                  borderRadius={"3"}
                   src={
                     item?.profile_path
                       ? `${imagePath}/${item?.profile_path}`
