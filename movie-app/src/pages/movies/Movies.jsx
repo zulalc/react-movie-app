@@ -1,11 +1,13 @@
 import { Container, Grid, Heading, Skeleton } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { act, useEffect, useState } from "react";
 import { fetchMovies } from "../../services/api";
 import CardComponent from "../../components/CardComponent";
+import PaginationComponent from "../../components/PaginationComponent";
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [activePage, setActivePage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setLoading(true);
@@ -14,6 +16,7 @@ const Movies = () => {
         console.log(res, "res");
         setMovies(res?.results);
         setActivePage(res?.page);
+        setTotalPages(res?.total_pages);
       })
       .catch((error) => console.log(error, "error"))
       .finally(() => setLoading(false));
@@ -44,6 +47,11 @@ const Movies = () => {
           )}
       </Grid>
       {/*Pagination: pages of movies*/}
+      <PaginationComponent
+        activePage={activePage}
+        totalPages={totalPages}
+        setActivePage={setActivePage}
+      />
     </Container>
   );
 };
