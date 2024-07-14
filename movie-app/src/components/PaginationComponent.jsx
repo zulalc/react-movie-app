@@ -28,8 +28,8 @@ const PaginationComponent = ({ activePage, totalPages, setActivePage }) => {
         <Button
           colorScheme="blue"
           variant={"outline"}
-          onClick={() => setActivePage(500)}
-          isDisabled={activePage === 500}
+          onClick={() => setActivePage(totalPages)}
+          isDisabled={activePage === totalPages}
         >
           Last
         </Button>
@@ -37,7 +37,7 @@ const PaginationComponent = ({ activePage, totalPages, setActivePage }) => {
       <Flex gap={"1"}>
         <Text>{activePage}</Text>
         <Text>of</Text>
-        <Text>500</Text>
+        <Text>{totalPages}</Text>
       </Flex>
     </Flex>
   );
