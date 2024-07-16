@@ -3,7 +3,7 @@ import axios from "axios";
 export const imagePath = "https://image.tmdb.org/t/p/w500";
 export const imagePathOriginal = "https://image.tmdb.org/t/p/original";
 
-const baseUrl = "https://api.themoviedb.org/3";
+export const baseUrl = "https://api.themoviedb.org/3";
 const apiKey = import.meta.env.VITE_API_KEY;
 
 //Trending All
@@ -61,5 +61,11 @@ export const searchData = async (query, page) => {
     `${baseUrl}/search/multi?api_key=${apiKey}&query=${query}&page=${page}`
   );
   //const filteredData = res?.data.filter((item) => item.media_type !== "person");
+  return res?.data;
+};
+
+//fetch Person
+export const fetchPerson = async (type, id) => {
+  const res = await axios.get(`${baseUrl}/person/${id}?api_key=${apiKey}`);
   return res?.data;
 };

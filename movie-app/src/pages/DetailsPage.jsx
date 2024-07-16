@@ -6,6 +6,7 @@ import {
   CircularProgressLabel,
   Container,
   Flex,
+  Grid,
   Heading,
   Image,
   Spinner,
@@ -33,6 +34,7 @@ import {
 } from "../utils/helpers";
 import imageSrc from "../assets/person.jpg";
 import VideoComponent from "../components/VideoComponent";
+import CastComponent from "../components/CastComponent";
 
 const DetailsPage = () => {
   const router = useParams();
@@ -79,9 +81,8 @@ const DetailsPage = () => {
 
     fetchData();
   }, [type, id]);
+  console.log(cast, "cast");
   console.log(details, "details");
-  console.log(video, videos, "videos");
-  console.log(crew, "crew");
   if (loading) {
     return (
       <Flex justify={"center"}>
@@ -250,26 +251,25 @@ const DetailsPage = () => {
         <Flex mt={"5"} mb={"10"} overflow={"scroll"} gap={"5"}>
           {cast?.length === 0 && <Text> No cast found</Text>}
 
-          {cast &&
-            cast?.map((item) => (
-              <Box key={item?.id} minW={"150px"} height={"290px"}>
-                <Image
-                  width={"100%"}
-                  maxW={"150px"}
-                  borderRadius={"3"}
-                  src={
-                    item?.profile_path
-                      ? `${imagePath}/${item?.profile_path}`
-                      : imageSrc
-                  }
-                  alt={item?.name || "No profile"}
-                />
-                <Text>{item?.name}</Text>
-                <Text width={"150px"} fontSize={"smaller"} color={"gray.400"}>
-                  {item?.character}
-                </Text>
-              </Box>
-            ))}
+          <Grid
+            templateColumns={{
+              //FOR RESPONSIVENESS
+              base: "1fr", //size for mobile
+              sm: "repeat(2, 1fr)",
+              md: "repeat(4, 1fr)",
+              lg: "repeat(5, 1fr)",
+            }}
+            gap="4"
+          >
+            {cast &&
+              cast?.map((item, i) =>
+                loading ? ( //when loading there is a possibility we don't have data so we dont use data key here
+                  <Skeleton height={300} key={i} />
+                ) : (
+                  <CastComponent key={item?.id} item={item} type={"person"} />
+                )
+              )}
+          </Grid>
         </Flex>
 
         <Heading
