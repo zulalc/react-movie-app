@@ -47,9 +47,19 @@ export const fetchMovies = async (page, sortBy) => {
   return res?.data;
 };
 
+// Browse Shows
 export const fetchShows = async (page, sortBy) => {
   const res = await axios.get(
     `${baseUrl}/discover/tv?api_key=${apiKey}&page=${page}&sort_by=${sortBy}`
   );
+  return res?.data;
+};
+
+//Search
+export const searchData = async (query, page) => {
+  const res = await axios.get(
+    `${baseUrl}/search/multi?api_key=${apiKey}&query=${query}&page=${page}`
+  );
+  //const filteredData = res?.data.filter((item) => item.media_type !== "person");
   return res?.data;
 };

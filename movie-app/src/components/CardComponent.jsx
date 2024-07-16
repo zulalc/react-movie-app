@@ -49,7 +49,7 @@ const CardComponent = ({ item, type }) => {
             mt={"4"}
           >
             <StarIcon fontSize={"small"} />
-            <Text>{item?.vote_average.toFixed(1)}</Text>
+            <Text>{item.vote_average?.toFixed(1)}</Text>
           </Flex>
         </Box>
       </Box>
