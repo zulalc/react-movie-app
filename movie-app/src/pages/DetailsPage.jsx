@@ -248,18 +248,28 @@ const DetailsPage = () => {
         <Heading as={"h2"} fontSize={"m"} textTransform={"uppercase"} mt={"10"}>
           Cast
         </Heading>
-        <Flex mt={"5"} mb={"10"} overflow={"scroll"} gap={"5"}>
+        <Flex
+          display={"flex"}
+          flexWrap={"wrap"}
+          mt={"5"}
+          mb={"10"}
+          height={"300px"}
+          overflowX={"auto"}
+          gap={"4"}
+          position={"relative"}
+        >
           {cast?.length === 0 && <Text> No cast found</Text>}
 
           <Grid
             templateColumns={{
               //FOR RESPONSIVENESS
               base: "1fr", //size for mobile
-              sm: "repeat(2, 1fr)",
-              md: "repeat(4, 1fr)",
-              lg: "repeat(5, 1fr)",
+              sm: "repeat(3, 1fr)",
+              md: "repeat(5, 1fr)",
+              lg: "repeat(6, 1sfr)",
             }}
             gap="4"
+            position={"absolute"}
           >
             {cast &&
               cast?.map((item, i) =>

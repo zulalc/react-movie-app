@@ -1,6 +1,7 @@
 import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { imagePath } from "../services/api";
+import imageSrc from "../assets/person.jpg";
 
 const CastComponent = ({ item, type }) => {
   return (
@@ -19,7 +20,9 @@ const CastComponent = ({ item, type }) => {
         }}
       >
         <Image
-          src={`${imagePath}${item?.profile_path}`}
+          src={
+            item?.profile_path ? `${imagePath}/${item?.profile_path}` : imageSrc
+          }
           alt={item?.name}
           height={"100%"}
         />
@@ -35,8 +38,12 @@ const CastComponent = ({ item, type }) => {
           opacity={"0"}
           transition={"opacity 0.3s ease-in-out"}
         >
-          <Text textAlign={"center"}>{item?.name}</Text>
-          <Text textAlign={"center"}>{item?.character}</Text>
+          <Text textAlign={"center"} fontSize={"sm"}>
+            {item?.name}
+          </Text>
+          <Text textAlign={"center"} fontSize={"smaller"} fontStyle={"italic"}>
+            {item?.character}
+          </Text>
         </Box>
       </Box>
     </Link>
