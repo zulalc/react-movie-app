@@ -9,6 +9,7 @@ import {
   Grid,
   Heading,
   Image,
+  Skeleton,
   Spinner,
   Text,
 } from "@chakra-ui/react";
@@ -32,7 +33,6 @@ import {
   resolveRatingColor,
   minToHours,
 } from "../utils/helpers";
-import imageSrc from "../assets/person.jpg";
 import VideoComponent from "../components/VideoComponent";
 import CastComponent from "../components/CastComponent";
 

@@ -69,3 +69,18 @@ export const fetchPerson = async (type, id) => {
   const res = await axios.get(`${baseUrl}/person/${id}?api_key=${apiKey}`);
   return res?.data;
 };
+
+//fetch movies and tv shows of person
+export const fetchPersonShows = async (type, id) => {
+  const res = await axios.get(
+    `${baseUrl}/person/${id}/tv_credits?api_key=${apiKey}`
+  );
+  return res?.data;
+};
+
+export const fetchPersonMovies = async (type, id) => {
+  const res = await axios.get(
+    `${baseUrl}/person/${id}/movie_credits?api_key=${apiKey}`
+  );
+  return res?.data;
+};

@@ -1,4 +1,4 @@
-import { Box, Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Image, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { imagePath } from "../services/api";
 import imageSrc from "../assets/person.jpg";
