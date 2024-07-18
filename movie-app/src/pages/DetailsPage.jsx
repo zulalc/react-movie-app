@@ -35,6 +35,7 @@ import {
 } from "../utils/helpers";
 import VideoComponent from "../components/VideoComponent";
 import CastComponent from "../components/CastComponent";
+import imageSrc from "../assets/poster.jpg";
 
 const DetailsPage = () => {
   const router = useParams();
@@ -117,7 +118,12 @@ const DetailsPage = () => {
             <Image
               height={"450px"}
               borderRadius={"sm"}
-              src={`${imagePath}/${details?.poster_path}`}
+              src={
+                details?.poster_path
+                  ? `${imagePath}/${details?.poster_path}`
+                  : imageSrc
+              }
+              alt={details?.name}
             />
             <Box>
               <Heading fontSize={"3xl"}>
@@ -253,7 +259,7 @@ const DetailsPage = () => {
           flexWrap={"wrap"}
           mt={"5"}
           mb={"10"}
-          height={"300px"}
+          height={"500px"}
           overflowX={"auto"}
           gap={"4"}
           position={"relative"}
@@ -265,7 +271,7 @@ const DetailsPage = () => {
               //FOR RESPONSIVENESS
               base: "1fr", //size for mobile
               sm: "repeat(3, 1fr)",
-              md: "repeat(5, 1fr)",
+              md: "repeat(6, 1fr)",
               lg: "repeat(6, 1sfr)",
             }}
             gap="4"

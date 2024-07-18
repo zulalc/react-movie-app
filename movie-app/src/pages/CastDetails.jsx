@@ -20,6 +20,7 @@ import {
 } from "../services/api";
 import { CalendarIcon } from "@chakra-ui/icons";
 import CardComponent from "../components/CardComponent";
+import imageSrc from "../assets/person.jpg";
 
 const CastDetails = () => {
   const router = useParams();
@@ -105,7 +106,12 @@ const CastDetails = () => {
             <Image
               height={"450px"}
               borderRadius={"sm"}
-              src={`${imagePath}/${person?.profile_path}`}
+              src={
+                person?.profile_path
+                  ? `${imagePath}/${person?.profile_path}`
+                  : imageSrc
+              }
+              alt={person?.name}
             />
             <Box>
               <Heading fontSize={"3xl"} mb={"2"}>

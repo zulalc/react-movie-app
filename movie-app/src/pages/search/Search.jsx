@@ -10,6 +10,7 @@ import {
 import { useEffect, useState } from "react";
 import { searchData } from "../../services/api";
 import CardComponent from "../../components/CardComponent";
+import CastComponent from "../../components/CastComponent";
 import PaginationComponent from "../../components/PaginationComponent";
 
 const Search = () => {
@@ -81,6 +82,8 @@ const Search = () => {
           data?.map((item, i) =>
             loading ? ( //when loading there is a possibility we don't have data so we dont use data key here
               <Skeleton height={300} key={i} />
+            ) : item.media_type === "person" ? (
+              <CastComponent key={item?.id} item={item} type={"person"} />
             ) : (
               <CardComponent
                 key={item?.id}

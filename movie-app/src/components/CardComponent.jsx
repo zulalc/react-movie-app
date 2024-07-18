@@ -2,6 +2,7 @@ import { Box, Flex, Image, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { imagePath } from "../services/api";
 import { StarIcon } from "@chakra-ui/icons";
+import imageSrc from "../assets/poster.jpg";
 
 const CardComponent = ({ item, type }) => {
   return (
@@ -20,8 +21,10 @@ const CardComponent = ({ item, type }) => {
         }}
       >
         <Image
-          src={`${imagePath}/${item?.poster_path}`}
-          alt={item?.title || item?.name}
+          src={
+            item?.poster_path ? `${imagePath}/${item?.poster_path}` : imageSrc
+          }
+          alt={item?.name}
           height={"100%"}
         />
         <Box

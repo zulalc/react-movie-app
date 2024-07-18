@@ -10,11 +10,11 @@ const Navbar = () => {
             <Box
               fontSize={"2xl"}
               fontWeight={"bold"}
-              color="red"
+              color="#FF7676"
               letterSpacing={"wide"}
-              fontFamily={"mono"}
+              fontFamily={"verdana"}
             >
-              NETFLIX
+              MovieApp
             </Box>
           </Link>
 

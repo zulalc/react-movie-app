@@ -26,25 +26,12 @@ const CastComponent = ({ item, type }) => {
           alt={item?.name}
           height={"100%"}
         />
-        <Box
-          className="overlay"
-          position={"absolute"}
-          p={"2"}
-          bottom={"0"}
-          left={"0"}
-          w={"100%"}
-          h={"33%"}
-          bg={"rgba(0,0,0,0.9)"}
-          opacity={"0"}
-          transition={"opacity 0.3s ease-in-out"}
-        >
-          <Text textAlign={"center"} fontSize={"sm"}>
-            {item?.name}
-          </Text>
-          <Text textAlign={"center"} fontSize={"smaller"} fontStyle={"italic"}>
-            {item?.character}
-          </Text>
-        </Box>
+        <Text textAlign={"center"} fontSize={"sm"}>
+          {item?.name}
+        </Text>
+        <Text textAlign={"center"} fontSize={"smaller"} fontStyle={"italic"}>
+          {item?.character}
+        </Text>
       </Box>
     </Link>
   );
