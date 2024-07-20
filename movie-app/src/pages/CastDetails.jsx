@@ -125,20 +125,16 @@ const CastDetails = () => {
                   {person?.known_for_department}
                 </Text>
               </Flex>
-              <Flex alignItems={"center"}>
+              <Flex alignItems={"center"} mb={"3"}>
                 <Text fontSize={"sm"} color={"gray.400"}>
                   {person?.place_of_birth}
                 </Text>
               </Flex>
-              <Text
-                fontSize={"md"}
-                mb={"3"}
-                mt={"4"}
-                height={"300px"}
-                overflowY={"scroll"}
-              >
-                {person?.biography}
-              </Text>
+              <Flex alignItems={"center"} overflowY={"scroll"}>
+                <Text fontSize={"md"} mb={"3"} mt={"4"} height={"300px"}>
+                  {person?.biography}
+                </Text>
+              </Flex>
             </Box>
           </Flex>
         </Container>
@@ -147,13 +143,14 @@ const CastDetails = () => {
         <Heading as={"h2"} fontSize={"m"} textTransform={"uppercase"} mt={"10"}>
           Movies
         </Heading>
+
         <Flex
           display={"flex"}
           flexWrap={"wrap"}
           mt={"5"}
           mb={"10"}
-          height={"550px"}
-          overflowX={"auto"}
+          height={"calc(100vh - 390px)"}
+          overflowY={"auto"}
           gap={"4"}
           position={"relative"}
         >
@@ -188,7 +185,7 @@ const CastDetails = () => {
           flexWrap={"wrap"}
           mt={"5"}
           mb={"10"}
-          height={"550px"}
+          height={"calc(100vh - 450px)"}
           overflowX={"auto"}
           gap={"4"}
           position={"relative"}
@@ -199,7 +196,7 @@ const CastDetails = () => {
             templateColumns={{
               //FOR RESPONSIVENESS
               base: "1fr", //size for mobile
-              sm: "repeat(3, 1fr)",
+              sm: "repeat(2, 1fr)",
               md: "repeat(5, 1fr)",
               lg: "repeat(6, 1sfr)",
             }}

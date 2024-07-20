@@ -61,7 +61,7 @@ const DetailsPage = () => {
         //set details
         setDetails(detailsData);
         //set cast
-        setCast(creditsData?.cast?.slice(0, 10));
+        setCast(creditsData?.cast?.slice(0, 12));
         //set crew
         setCrew(creditsData?.crew?.slice(0, 3));
         //set video and videos
@@ -254,13 +254,14 @@ const DetailsPage = () => {
         <Heading as={"h2"} fontSize={"m"} textTransform={"uppercase"} mt={"10"}>
           Cast
         </Heading>
+
         <Flex
           display={"flex"}
           flexWrap={"wrap"}
           mt={"5"}
           mb={"10"}
-          height={"500px"}
-          overflowX={"auto"}
+          height={"calc(100vh - 450px)"}
+          overflowY={"auto"}
           gap={"4"}
           position={"relative"}
         >
@@ -275,7 +276,6 @@ const DetailsPage = () => {
               lg: "repeat(6, 1sfr)",
             }}
             gap="4"
-            position={"absolute"}
           >
             {cast &&
               cast?.map((item, i) =>
