@@ -93,11 +93,13 @@ const Search = () => {
             )
           )}
       </Grid>
-      <PaginationComponent
-        activePage={activePage}
-        totalPages={totalPages}
-        setActivePage={setActivePage}
-      />
+      {data?.length > 0 && !loading && (
+        <PaginationComponent
+          activePage={activePage}
+          totalPages={totalPages}
+          setActivePage={setActivePage}
+        />
+      )}
     </Container>
   );
 };
