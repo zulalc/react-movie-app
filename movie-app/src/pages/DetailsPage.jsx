@@ -12,6 +12,7 @@ import {
   Skeleton,
   Spinner,
   Text,
+  useToast,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -36,10 +37,17 @@ import {
 import VideoComponent from "../components/VideoComponent";
 import CastComponent from "../components/CastComponent";
 import imageSrc from "../assets/poster.jpg";
+import { useAuth } from "../context/useAuth";
+import { useFirestore } from "../services/firestore";
 
 const DetailsPage = () => {
   const router = useParams();
   const { type, id } = router;
+
+  const { user } = useAuth();
+  const { addToWatchlist, checkIfInWatchlist, removeFromWatchlist } =
+    useFirestore(); //custom hook
+  const toast = useToast();
 
   const [details, setDetails] = useState({});
   const [cast, setCast] = useState({});
@@ -47,6 +55,7 @@ const DetailsPage = () => {
   const [video, setVideo] = useState(null);
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isInWatchlist, setIsInWatchlist] = useState(false);
 
   //Dealing with multiple API requests/promises
   useEffect(() => {
@@ -82,8 +91,50 @@ const DetailsPage = () => {
 
     fetchData();
   }, [type, id]);
-  console.log(cast, "cast");
-  console.log(details, "details");
+
+  const handleSaveToWatchlist = async () => {
+    if (!user) {
+      toast({
+        title: "Login to add to watchlist",
+        status: "error",
+        isClosable: true,
+      });
+      return;
+    }
+    const data = {
+      id: details?.id,
+      title: details?.title || details?.name,
+      type: type,
+      poster_path: details?.poster_path,
+      releaseDate: details?.first_air_date || details?.release_date,
+      vote_average: details?.vote_average,
+      overview: details?.overview,
+    };
+
+    //addDocument("wathclist", data);
+    const dataId = details?.id?.toString();
+    await addToWatchlist(user?.uid, id, data);
+    const isSetToWatchlist = await checkIfInWatchlist(user?.uid, dataId);
+    setIsInWatchlist(isSetToWatchlist);
+  };
+
+  useEffect(() => {
+    if (!user) {
+      //if dont have user
+      setIsInWatchlist(false);
+      return;
+    }
+
+    checkIfInWatchlist(user?.uid, id).then((data) => {
+      setIsInWatchlist(data);
+    }); // id is from router (type, id)
+  }, [user, id, checkIfInWatchlist]);
+
+  const handleRemoveFromWatchlist = async () => {
+    await removeFromWatchlist(user?.uid, id); //remove it
+    const isSetToWatchlist = await checkIfInWatchlist(user?.uid, id);
+    setIsInWatchlist(isSetToWatchlist);
+  };
   if (loading) {
     return (
       <Flex justify={"center"}>
@@ -192,24 +243,24 @@ const DetailsPage = () => {
                 <Text display={{ base: "none", md: "initial" }}>
                   User Score
                 </Text>
-                <Button
-                  leftIcon={<CheckCircleIcon />}
-                  colorScheme="green"
-                  variant={"outline"}
-                  onClick={() => console.log("click")}
-                >
-                  {" "}
-                  In watchlist
-                </Button>
-
-                <Button
-                  leftIcon={<SmallAddIcon />}
-                  variant={"outline"}
-                  onClick={() => console.log("click")}
-                >
-                  {" "}
-                  Add to watchlist
-                </Button>
+                {isInWatchlist ? (
+                  <Button
+                    leftIcon={<CheckCircleIcon />}
+                    colorScheme="green"
+                    variant={"outline"}
+                    onClick={handleRemoveFromWatchlist}
+                  >
+                    In watchlist
+                  </Button>
+                ) : (
+                  <Button
+                    leftIcon={<SmallAddIcon />}
+                    variant={"outline"}
+                    onClick={handleSaveToWatchlist}
+                  >
+                    Add to watchlist
+                  </Button>
+                )}
               </Flex>
               <Text
                 color={"gray.400"}
