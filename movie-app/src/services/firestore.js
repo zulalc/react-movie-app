@@ -6,8 +6,10 @@ import {
   deleteDoc,
   doc,
   getDoc,
+  getDocs,
   setDoc,
 } from "firebase/firestore";
+import { useCallback } from "react";
 
 export const useFirestore = () => {
   const toast = useToast();
@@ -86,10 +88,23 @@ export const useFirestore = () => {
     }
   };
 
+  const getWatchlist = useCallback(async (userId) => {
+    //when adding a function to dependency array you
+    //need to write that function into a callback
+    const querySnapshot = await getDocs(
+      collection(db, "users", userId, "watchlist")
+    );
+    const data = querySnapshot.docs.map((doc) => ({
+      ...doc.data(), //object with all data inside movie w all details etc
+    }));
+    return data;
+  }, []);
+
   return {
     addDocument,
     addToWatchlist,
     checkIfInWatchlist,
     removeFromWatchlist,
+    getWatchlist,
   };
 };
