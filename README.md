@@ -9,6 +9,7 @@ for TV shows, movies, and actors/actresses. It uses Firebase and Firestore for a
 <img src="4.png" alt="movie" width="100%"/>
 <img src="5.png" alt="actress" width="100%"/>
 <img src="6.png" alt="actress" width="100%"/>
+
 ## Features
 
 - **Trending Page**: Displays trending movies and TV shows.
