@@ -9,7 +9,6 @@ import {
   MenuList,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../context/useAuth";
 import { SearchIcon } from "@chakra-ui/icons";
 
 const Navbar = () => {
