@@ -44,9 +44,9 @@ const DetailsPage = () => {
   const router = useParams();
   const { type, id } = router;
 
-  const { user } = useAuth();
-  const { addToWatchlist, checkIfInWatchlist, removeFromWatchlist } =
-    useFirestore(); //custom hook
+  //const { user } = useAuth();
+  //const { addToWatchlist, checkIfInWatchlist, removeFromWatchlist } =
+  //  useFirestore(); //custom hook
   const toast = useToast();
 
   const [details, setDetails] = useState({});
@@ -55,7 +55,7 @@ const DetailsPage = () => {
   const [video, setVideo] = useState(null);
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [isInWatchlist, setIsInWatchlist] = useState(false);
+  // const [isInWatchlist, setIsInWatchlist] = useState(false);
 
   //Dealing with multiple API requests/promises
   useEffect(() => {
@@ -92,7 +92,7 @@ const DetailsPage = () => {
     fetchData();
   }, [type, id]);
 
-  const handleSaveToWatchlist = async () => {
+  /*const handleSaveToWatchlist = async () => {
     if (!user) {
       toast({
         title: "Login to add to watchlist",
@@ -134,7 +134,7 @@ const DetailsPage = () => {
     await removeFromWatchlist(user?.uid, id); //remove it
     const isSetToWatchlist = await checkIfInWatchlist(user?.uid, id);
     setIsInWatchlist(isSetToWatchlist);
-  };
+  };*/
   if (loading) {
     return (
       <Flex justify={"center"}>
@@ -243,24 +243,9 @@ const DetailsPage = () => {
                 <Text display={{ base: "none", md: "initial" }}>
                   User Score
                 </Text>
-                {isInWatchlist ? (
-                  <Button
-                    leftIcon={<CheckCircleIcon />}
-                    colorScheme="green"
-                    variant={"outline"}
-                    onClick={handleRemoveFromWatchlist}
-                  >
-                    In watchlist
-                  </Button>
-                ) : (
-                  <Button
-                    leftIcon={<SmallAddIcon />}
-                    variant={"outline"}
-                    onClick={handleSaveToWatchlist}
-                  >
-                    Add to watchlist
-                  </Button>
-                )}
+                <Button leftIcon={<SmallAddIcon />} variant={"outline"}>
+                  Add to watchlist
+                </Button>
               </Flex>
               <Text
                 color={"gray.400"}
