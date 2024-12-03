@@ -13,16 +13,17 @@ import { useAuth } from "../context/useAuth";
 import { SearchIcon } from "@chakra-ui/icons";
 
 const Navbar = () => {
-  const { user, signInWithGoogle, logout } = useAuth();
+  //const { user, signInWithGoogle, logout } = useAuth();
 
-  const handleGoogleLogin = async () => {
+  /*const handleGoogleLogin = async () => {
     try {
       await signInWithGoogle();
       console.log("success");
     } catch (error) {
       console.log("error", error);
     }
-  };
+  };*/
+
   return (
     <Box py="4" mb="2">
       <Container maxW={"container.xl"}>
@@ -48,32 +49,7 @@ const Navbar = () => {
               <SearchIcon fontSize={"l"} />
             </Link>
 
-            {user && (
-              <Menu>
-                <MenuButton>
-                  <Avatar
-                    bg={"red.500"}
-                    color={"white"}
-                    size={"sm"}
-                    name={user?.email}
-                  />
-                </MenuButton>
-                <MenuList>
-                  <Link to="/watchlist">
-                    <MenuItem>Watchlist</MenuItem>
-                  </Link>
-                  <MenuItem onClick={logout}>Logout</MenuItem>
-                </MenuList>
-              </Menu>
-            )}
-            {!user && (
-              <Avatar
-                size={"sm"}
-                bg={"gray.700"}
-                as={"button"}
-                onClick={handleGoogleLogin}
-              />
-            )}
+            <Avatar size={"sm"} bg={"gray.700"} as={"button"} />
           </Flex>
         </Flex>
       </Container>

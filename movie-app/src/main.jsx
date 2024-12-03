@@ -21,7 +21,6 @@ const router = createBrowserRouter([
     path: "/",
     element: <App />,
     children: [
-      //array of routes
       {
         path: "/",
         element: <Home />,
@@ -45,14 +44,6 @@ const router = createBrowserRouter([
       {
         path: "/person/:id/",
         element: <CastDetails />,
-      },
-      {
-        path: "/watchlist/",
-        element: (
-          <Protected>
-            <Watchlist />
-          </Protected>
-        ),
       },
     ],
   },

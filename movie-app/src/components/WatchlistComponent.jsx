@@ -15,13 +15,14 @@ import { CheckIcon, StarIcon } from "@chakra-ui/icons";
 
 const WatchlistComponent = ({ type, item, setWatchlist }) => {
   const { removeFromWatchlist } = useFirestore();
-  const { user } = useAuth();
-  const handleRemoveClick = (event) => {
+  //const { user } = useAuth();
+  /* const handleRemoveClick = (event) => {
     event.preventDefault();
     removeFromWatchlist(user?.uid, item.id).then(() => {
       setWatchlist((prev) => prev.filter((el) => el.id !== item.id)); // for user interface
     });
-  };
+  };*/
+
   return (
     <Link to={`/${type}/${item.id}`}>
       <Flex gap={"4"}>
@@ -43,7 +44,6 @@ const WatchlistComponent = ({ type, item, setWatchlist }) => {
               zIndex={"999"}
               top={"2px"}
               left={"2px"}
-              onClick={handleRemoveClick}
             />
           </Tooltip>
         </Box>
