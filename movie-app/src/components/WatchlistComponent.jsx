@@ -9,12 +9,10 @@ import {
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { imagePath } from "../services/api";
-import { useFirestore } from "../services/firestore";
-import { useAuth } from "../context/useAuth";
 import { CheckIcon, StarIcon } from "@chakra-ui/icons";
 
 const WatchlistComponent = ({ type, item, setWatchlist }) => {
-  const { removeFromWatchlist } = useFirestore();
+  //const { removeFromWatchlist } = useFirestore();
   //const { user } = useAuth();
   /* const handleRemoveClick = (event) => {
     event.preventDefault();
