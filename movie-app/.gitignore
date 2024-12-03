@@ -25,3 +25,6 @@ dist-ssr
 
 #env - we don't want to push our ENV file
 .env
+src/services/firebase.js
+src/services/firestore.js
+src/routes
