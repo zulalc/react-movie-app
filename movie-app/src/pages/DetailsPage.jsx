@@ -37,8 +37,6 @@ import {
 import VideoComponent from "../components/VideoComponent";
 import CastComponent from "../components/CastComponent";
 import imageSrc from "../assets/poster.jpg";
-import { useAuth } from "../context/useAuth";
-import { useFirestore } from "../services/firestore";
 
 const DetailsPage = () => {
   const router = useParams();
