@@ -12,10 +12,6 @@ import Search from "./pages/search/Search.jsx";
 import DetailsPage from "./pages/DetailsPage.jsx";
 import CastDetails from "./pages/CastDetails.jsx";
 
-import { AuthProvider } from "./context/authProvider.jsx";
-import Watchlist from "./pages/Watchlist.jsx";
-import Protected from "./components/routes/Protected.jsx";
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -53,9 +49,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ColorModeScript initialColorMode={theme.config.initialColorMode} />
     <ChakraProvider theme={theme}>
-      <AuthProvider>
-        <RouterProvider router={router} />
-      </AuthProvider>
+      <RouterProvider router={router} />
     </ChakraProvider>
   </React.StrictMode>
 );
