@@ -34,13 +34,20 @@ const CardComponent = ({ item, type }) => {
           bottom={"0"}
           left={"0"}
           w={"100%"}
-          h={"33%"}
+          h={"100%"}
           bg={"rgba(0,0,0,0.9)"}
           opacity={"0"}
           transition={"opacity 0.3s ease-in-out"}
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+          textAlign="center"
         >
-          <Text textAlign={"center"}>{item?.title || item?.name}</Text>
-          <Text textAlign={"center"} fontSize={"small"} color={"#1679AB"}>
+          <Text color={"#e5e7eb"} fontWeight="semibold" fontSize={"large"}>
+            {item?.title || item?.name}
+          </Text>
+          <Text color="#38BDF8" fontSize={"small"}>
             {new Date(
               item?.release_date || item?.first_air_date
             ).getFullYear() || "N/A"}
@@ -51,8 +58,8 @@ const CardComponent = ({ item, type }) => {
             gap={"2"}
             mt={"4"}
           >
-            <StarIcon fontSize={"small"} />
-            <Text>{item.vote_average?.toFixed(1)}</Text>
+            <StarIcon fontSize={"small"} color="#FBBF24" />
+            <Text color="#FBBF24">{item.vote_average?.toFixed(1)} </Text>
           </Flex>
         </Box>
       </Box>

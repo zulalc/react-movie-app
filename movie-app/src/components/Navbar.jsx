@@ -7,9 +7,12 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  chakra,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import { SearchIcon } from "@chakra-ui/icons";
+
+const ChakraLink = chakra(RouterLink);
 
 const Navbar = () => {
   //const { user, signInWithGoogle, logout } = useAuth();
@@ -27,7 +30,7 @@ const Navbar = () => {
     <Box py="4" mb="2">
       <Container maxW={"container.xl"}>
         <Flex justifyContent={"space-between"}>
-          <Link to="/">
+          <ChakraLink to="/">
             <Box
               fontSize={"2xl"}
               fontWeight={"bold"}
@@ -37,16 +40,22 @@ const Navbar = () => {
             >
               MovieApp
             </Box>
-          </Link>
+          </ChakraLink>
 
           {/*DESKTOP VERSION ONLY*/}
           <Flex gap="4" alignItems={"center"}>
-            <Link to="/">Home</Link>
-            <Link to="/movies">Movies</Link>
-            <Link to="/shows">TV Shows</Link>
-            <Link to="/search">
-              <SearchIcon fontSize={"l"} />
-            </Link>
+            <ChakraLink to="/" _hover={{ color: "#FF7676" }}>
+              Home
+            </ChakraLink>
+            <ChakraLink to="/movies" _hover={{ color: "#FF7676" }}>
+              Movies
+            </ChakraLink>
+            <ChakraLink to="/shows" _hover={{ color: "#FF7676" }}>
+              TV Shows
+            </ChakraLink>
+            <ChakraLink to="/search" _hover={{ color: "#FF7676" }}>
+              <SearchIcon fontSize="l" />
+            </ChakraLink>
 
             <Avatar size={"sm"} bg={"gray.700"} as={"button"} />
           </Flex>

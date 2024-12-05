@@ -175,7 +175,7 @@ const DetailsPage = () => {
               alt={details?.name}
             />
             <Box>
-              <Heading fontSize={"3xl"}>
+              <Heading fontSize={"3xl"} color="gray.100">
                 {title}{" "}
                 <Text as={"span"} fontWeight={"normal"} color={"gray.400"}>
                   {new Date(releaseDate).getFullYear()}
@@ -184,7 +184,7 @@ const DetailsPage = () => {
 
               <Flex alignItems={"center"} gap={"4"} mt={1} mb={5}>
                 <Flex alignItems={"center"}>
-                  <CalendarIcon mr={2} color={"gray.400"} />
+                  <CalendarIcon mr={2} color={"gray.500"} />
                   <Text fontSize={"sm"}>
                     {new Date(releaseDate).toLocaleDateString("tr-TR")} (TR)
                   </Text>
