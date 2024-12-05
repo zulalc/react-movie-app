@@ -177,7 +177,7 @@ const DetailsPage = () => {
             <Box>
               <Heading fontSize={"3xl"} color="gray.100">
                 {title}{" "}
-                <Text as={"span"} fontWeight={"normal"} color={"gray.400"}>
+                <Text as={"span"} fontWeight={"normal"} color={"gray.100"}>
                   {new Date(releaseDate).getFullYear()}
                 </Text>
               </Heading>
@@ -185,14 +185,14 @@ const DetailsPage = () => {
               <Flex alignItems={"center"} gap={"4"} mt={1} mb={5}>
                 <Flex alignItems={"center"}>
                   <CalendarIcon mr={2} color={"gray.500"} />
-                  <Text fontSize={"sm"}>
+                  <Text fontSize={"sm"} color={"gray.100"}>
                     {new Date(releaseDate).toLocaleDateString("tr-TR")} (TR)
                   </Text>
                   {type === "movie" && (
                     <>
                       <Flex alignItems={"center"}>
                         <TimeIcon mr={"2"} ml={"5"} color={"gray.400"} />
-                        <Text fontSize={"sm"}>
+                        <Text fontSize={"sm"} color={"gray.100"}>
                           {" "}
                           {minToHours(details?.runtime)}
                         </Text>
@@ -206,6 +206,7 @@ const DetailsPage = () => {
                         <TimeIcon mr={"2"} ml={"2"} color={"gray.400"} />
                         <Text
                           fontSize={"sm"}
+                          color={"gray.100"}
                           /*src={
                             details?.number_of_seasons === "1"
                               ? `season`
@@ -231,17 +232,24 @@ const DetailsPage = () => {
                   color={resolveRatingColor(details?.vote_average)}
                   thickness={"6px"}
                 >
-                  <CircularProgressLabel fontSize={"lg"}>
-                    {ratingToPercentage(details?.vote_average)}{" "}
+                  <CircularProgressLabel fontSize={"lg"} color={"gray.100"}>
+                    {ratingToPercentage(details?.vote_average)}
                     <Box as="span" fontSize={"10px"}>
                       %
                     </Box>
                   </CircularProgressLabel>
                 </CircularProgress>
-                <Text display={{ base: "none", md: "initial" }}>
+                <Text
+                  display={{ base: "none", md: "initial" }}
+                  color={"gray.100"}
+                >
                   User Score
                 </Text>
-                <Button leftIcon={<SmallAddIcon />} variant={"outline"}>
+                <Button
+                  leftIcon={<SmallAddIcon />}
+                  variant={"outline"}
+                  color={"gray.100"}
+                >
                   Add to watchlist
                 </Button>
               </Flex>
@@ -253,27 +261,35 @@ const DetailsPage = () => {
               >
                 {details?.tagline}
               </Text>
-              <Heading fontSize={"xl"} mb={"3"}>
+              <Heading fontSize={"xl"} mb={"3"} color={"gray.100"}>
                 Overview
               </Heading>
-              <Text fontSize={"md"} mb={"3"}>
+              <Text fontSize={"md"} mb={"3"} color={"gray.100"}>
                 {details?.overview}
               </Text>
               <Flex mt="6" gap="2">
                 {details?.genres?.map((genre) => (
-                  <Badge key={genre?.id} p="1" borderRadius={"4"}>
+                  <Badge
+                    key={genre?.id}
+                    p="1"
+                    borderRadius={"4"}
+                    color="gray.100"
+                    bg="gray.600"
+                  >
                     {genre?.name}
                   </Badge>
                 ))}
               </Flex>
 
               <Flex mt={"5"} mb={"10"} gap={"5"}>
-                {crew?.length === 0 && <Text> No crew found</Text>}
+                {crew?.length === 0 && (
+                  <Text color="gray.100"> No crew found</Text>
+                )}
 
                 {crew &&
                   crew?.map((item) => (
                     <Box key={item?.credit_id} minW={"100px"}>
-                      <Text>{item?.name}</Text>
+                      <Text color="gray.100">{item?.name}</Text>
                       <Text fontSize={"smaller"} color={"gray.400"}>
                         {item?.job}
                       </Text>

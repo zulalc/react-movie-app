@@ -42,13 +42,15 @@ const Home = () => {
           gap={"2"}
           border={"1px solid #9B2C2C"}
           borderRadius={"20px"}
+          fontWeight="bold"
         >
           <Box
             as="button"
             px={"3"}
             py={"1"}
             borderRadius={"20px"}
-            bg={`${timeWindow === "day" ? "#9B2C2C" : ""}`}
+            bg={`${timeWindow === "day" ? "#9B2C2C" : "transparent"}`}
+            color={timeWindow === "day" ? "white" : "#9B2C2C"}
             onClick={() => setTimeWindow("day")}
           >
             Today
@@ -58,7 +60,8 @@ const Home = () => {
             px={"3"}
             py={"1"}
             borderRadius={"20px"}
-            bg={`${timeWindow === "week" ? "#9B2C2C" : ""}`}
+            bg={`${timeWindow === "week" ? "#9B2C2C" : "transparent"}`}
+            color={timeWindow === "week" ? "white" : "#9B2C2C"}
             onClick={() => setTimeWindow("week")}
           >
             This Week
